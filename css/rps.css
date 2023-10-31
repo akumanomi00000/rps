@@ -124,3 +124,8 @@ body{
   font-family: monospace;
   justify-content: space-evenly;
 }
+
+.credits{
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 17px;
+}
