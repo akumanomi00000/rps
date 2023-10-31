@@ -33,7 +33,7 @@ body{
 
 .rock-button{
   background-color: rgb(126, 218, 161);
-  background-image: url('/images/rock.png');
+  background-image: url('../images/rock.png');
   background-size: cover;
 }
 
@@ -47,7 +47,7 @@ body{
 
 .paper-button{
   background-color: rgb(121, 165, 216);
-  background-image: url('/images/paper.png');
+  background-image: url('../images/paper.png');
   background-size: cover;
 }
 
@@ -61,7 +61,7 @@ body{
 
 .scissor-button{
   background-color: rgb(218, 125, 125);
-  background-image: url('/images/scissor.png');
+  background-image: url('../images/scissor.png');
   background-size: cover;
 }
 
