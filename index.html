@@ -14,80 +14,30 @@
 
       <div class="rps-div">
         <button class="rps-button rock-button" onclick="
-          computerPick = Math.floor(Math.random() * 3);
-
-          if (computerPick === 0) {
-            enemyPickText = 'Rock';
-          } else if (computerPick === 1) {
-            enemyPickText = 'Paper';
-          } else if (computerPick === 2) {
-            enemyPickText = 'Scissor';
-          }
-          alert(`You chose: Rock\nComputer chose: ${enemyPickText}`);
-
-          if (computerPick === 0) {
-            alert('Draw!');
-          } else if (computerPick === 1) {
-            alert('Lose!');
-          } else if (computerPick === 2) {
-            alert('Win!');
-          }
+          rockChosen();
         ">
-          Rock
         </button>
   
         <button class="rps-button paper-button" onclick="
-          computerPick = Math.floor(Math.random() * 3);
-
-          if (computerPick === 0) {
-            enemyPickText = 'Rock';
-          } else if (computerPick === 1) {
-            enemyPickText = 'Paper';
-          } else {
-            enemyPickText = 'Scissor';
-          }
-          alert(`You chose: Paper\nComputer chose: ${enemyPickText}`);
-
-          if (computerPick === 0) {
-            alert('Win!');
-          } else if (computerPick === 1) {
-            alert('Draw!');
-          } else if (computerPick === 2) {
-            alert('Lose!');
-          }
+          paperChosen();
         ">
-          Paper
         </button>
   
         <button class="rps-button scissor-button" onclick="
-          computerPick = Math.floor(Math.random() * 3);
-
-          if (computerPick === 0) {
-            enemyPickText = 'Rock';
-          } else if (computerPick === 1) {
-            enemyPickText = 'Paper';
-          } else {
-            enemyPickText = 'Scissor';
-          }
-          alert(`You chose: Scissor\nComputer chose: ${enemyPickText}`);
-
-          if (computerPick === 0) {
-            alert('Lose!');
-          } else if (computerPick === 1) {
-            alert('Win!');
-          } else if (computerPick === 2) {
-            alert('Draw!');
-          }
+          scissorChosen();
         ">
-          Scissor
         </button>
       </div>
 
       <div class="player-status">
-        <!--<p class="winner-status">
-          You Win sanaol!
+        <!-- <div class="image-div">
+          <img src="/images/paper.png">
+          <img src="">
+        </div> -->
+
+        <p class="winner-status">
+          
         </p>
-        -->
 
         <div class="player-history">
           <p class="wins">
@@ -99,9 +49,17 @@
           </p>
   
           <p class="draws">
-            Draws: 0
+            Ties: 0
           </p>
         </div>
+      </div>
+
+      <div class="reset-button-div">
+        <button class="reset-button" onclick="
+            resetRecord();
+          ">
+          Reset
+        </button>
       </div>
     </div>
 
@@ -109,9 +67,133 @@
       let enemyPickText = '';
       let computerPick;
 
-      let wins = 0;
-      let loses = 0;
-      let draws = 0;
+      const winRecord = JSON.parse(localStorage.getItem('winRecord')) || {
+        wins: 0,
+        loses: 0,
+        draws: 0
+      };
+
+      playerHistoryUpdate();
+
+      function resetRecord(){
+        winRecord.wins = 0;
+        winRecord.loses = 0;
+        winRecord.draws = 0;
+
+        localStorage.setItem('winRecord', JSON.stringify(winRecord));
+        playerHistoryUpdate();
+      }
+
+      function playerHistoryUpdate(){
+        const winText = document.querySelector('.wins');
+        const loseText = document.querySelector('.loses');
+        const drawText = document.querySelector('.draws');
+
+        winText.innerHTML = `Wins: ${winRecord.wins}`;
+        loseText.innerHTML = `Loses: ${winRecord.loses}`;
+        drawText.innerHTML = `Ties: ${winRecord.draws}`;
+      }
+
+      function winnnerStatusUpdate(winCon){
+        const winStatusText = document.querySelector('.winner-status');
+
+        if (winCon === 'win') {
+          winStatusText.innerHTML = 'You Win!';
+        } else if (winCon === 'lose') {
+          winStatusText.innerHTML = 'You Lose!';
+        } else if (winCon === 'tie') {
+          winStatusText.innerHTML = 'Tie!';
+        } else {
+          winStatusText.innerHTML = '';
+        }
+      }
+
+      function rockChosen(){
+        computerPick = Math.floor(Math.random() * 3);
+
+        if (computerPick === 0) {
+          enemyPickText = 'Rock';
+        } else if (computerPick === 1) {
+          enemyPickText = 'Paper';
+        } else if (computerPick === 2) {
+          enemyPickText = 'Scissor';
+        }
+        alert(`You chose: Rock\nComputer chose: ${enemyPickText}`);
+
+        if (computerPick === 0) {
+          winRecord.draws += 1;
+          winnnerStatusUpdate('tie');
+        } else if (computerPick === 1) {
+          winRecord.loses += 1;
+          winnnerStatusUpdate('lose');
+        } else if (computerPick === 2) {
+          winRecord.wins += 1;
+          winnnerStatusUpdate('win');
+        }
+
+        setTimeout(winnnerStatusUpdate, 2000);
+
+        localStorage.setItem('winRecord', JSON.stringify(winRecord));
+        playerHistoryUpdate();
+      }
+
+      function paperChosen(){
+        computerPick = Math.floor(Math.random() * 3);
+
+        if (computerPick === 0) {
+          enemyPickText = 'Rock';
+        } else if (computerPick === 1) {
+          enemyPickText = 'Paper';
+        } else {
+          enemyPickText = 'Scissor';
+        }
+        alert(`You chose: Paper\nComputer chose: ${enemyPickText}`);
+
+        if (computerPick === 0) {
+          winRecord.wins += 1;
+          winnnerStatusUpdate('win');
+        } else if (computerPick === 1) {
+          winRecord.draws += 1;
+          winnnerStatusUpdate('tie');
+        } else if (computerPick === 2) {
+          winRecord.loses += 1;
+          winnnerStatusUpdate('lose');
+        }
+
+        setTimeout(winnnerStatusUpdate, 2000);
+
+        localStorage.setItem('winRecord', JSON.stringify(winRecord));
+        playerHistoryUpdate();
+      }
+
+      function scissorChosen(){
+        computerPick = Math.floor(Math.random() * 3);
+
+        if (computerPick === 0) {
+          enemyPickText = 'Rock';
+        } else if (computerPick === 1) {
+          enemyPickText = 'Paper';
+        } else {
+          enemyPickText = 'Scissor';
+        }
+        alert(`You chose: Scissor\nComputer chose: ${enemyPickText}`);
+
+        if (computerPick === 0) {
+          winRecord.loses += 1;
+          winnnerStatusUpdate('lose');
+        } else if (computerPick === 1) {
+          winRecord.wins += 1;
+          winnnerStatusUpdate('win');
+        } else if (computerPick === 2) {
+          winRecord.draws += 1;
+          winnnerStatusUpdate('tie');
+        }
+
+        setTimeout(winnnerStatusUpdate, 2000);
+
+        localStorage.setItem('winRecord', JSON.stringify(winRecord));
+        playerHistoryUpdate();
+      }
     </script>
   </body>
 </html>

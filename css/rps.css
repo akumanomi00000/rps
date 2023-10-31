@@ -9,10 +9,32 @@ body{
   border-radius: 50%;
   border-style: solid;
   cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.reset-button{
+  margin-top: 55px;
+  background-color: rgb(70, 221, 151);
+  font-size: 33px;
+  height: 50px;
+  width: 130px;
+  border-style: solid;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.reset-button:hover{
+  background-color: rgb(56, 182, 123);
+}
+
+.reset-button:active{
+  background-color: rgb(43, 150, 100);
 }
 
 .rock-button{
   background-color: rgb(126, 218, 161);
+  background-image: url('/images/rock.png');
+  background-size: cover;
 }
 
 .rock-button:hover{
@@ -25,6 +47,8 @@ body{
 
 .paper-button{
   background-color: rgb(121, 165, 216);
+  background-image: url('/images/paper.png');
+  background-size: cover;
 }
 
 .paper-button:hover{
@@ -37,6 +61,8 @@ body{
 
 .scissor-button{
   background-color: rgb(218, 125, 125);
+  background-image: url('/images/scissor.png');
+  background-size: cover;
 }
 
 .scissor-button:hover{
@@ -45,6 +71,12 @@ body{
 
 .scissor-button:active{
   background-color: rgb(155, 87, 87);
+}
+
+.reset-button-div{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .rps-div{
